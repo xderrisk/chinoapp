@@ -6,15 +6,31 @@ def load_grid(page: ft.Page):
     classroom_containers = []
 
     for key in classroom_keys:
+        aula_numero = key
         value = page.client_storage.get(key)
-        if value == 1:
+        aula_ip = value[1]
+        aula_numero = key.replace("Aula ", "")
+        if value[0] == 1:
             colorStatus = ft.Colors.RED
         else:
             colorStatus = ft.Colors.GREEN
-        aula_numero = key
+
+        content_controls = [
+                ft.Text(aula_numero, weight=ft.FontWeight.BOLD),
+            ]
+        if page.show_ips_globally:
+                content_controls.append(
+                    ft.Text(aula_ip, size=10, color=ft.Colors.GREY_300)
+                )
+        
             
         cuadrado = ft.Container(
-            content=ft.Text(aula_numero),
+            content=ft.Column(
+                content_controls,
+                horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+                alignment=ft.MainAxisAlignment.CENTER,
+                spacing=5
+            ),
             width=100,
             height=100,
             bgcolor=colorStatus,
@@ -31,7 +47,7 @@ def load_grid(page: ft.Page):
             wrap=True,
             spacing=10,
             run_spacing=10,
-            alignment=ft.MainAxisAlignment.SPACE_AROUND
+            vertical_alignment=ft.CrossAxisAlignment.CENTER,
         )
     )
     page.update()
