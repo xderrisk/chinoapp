@@ -47,7 +47,7 @@ def remove_classroom(page: ft.Page):
 
     remove_dialog = ft.AlertDialog(
         modal=True,
-        title=ft.Text("Agregar Salon"),
+        title=ft.Text("Eliminar Salon"),
         content=ft.Column(
             [
                 delete_classroom_number_field,
