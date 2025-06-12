@@ -196,4 +196,4 @@ def delete_aula(id_aula):
 # --- Run the Flask Application ---
 if __name__ == '__main__':
     # You can set debug=True for development, but set to False for production
-    app.run(debug=True, port=5000)
+    app.run(debug=True, host='0.0.0.0', port=5000)
