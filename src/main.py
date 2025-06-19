@@ -1,11 +1,13 @@
 import flet as ft
-# import asyncio
+import asyncio
 from grid import load_grid
 from add import add_classroom
 from remove import remove_classroom
+from config import edit_config
 
 def main(page: ft.Page):
     page.title = "chinoapp"
+    load_grid(page)
 
     page.show_ips_globally = False 
     def toggle_show_ips(e):
@@ -23,16 +25,17 @@ def main(page: ft.Page):
             ft.IconButton(ft.Icons.VISIBILITY_OFF, on_click=toggle_show_ips),
             ft.IconButton(ft.Icons.ADD, on_click=lambda e: add_classroom(page)),
             ft.IconButton(ft.Icons.REMOVE, on_click=lambda e: remove_classroom(page)),
-            ft.IconButton(ft.Icons.UPDATE, on_click=lambda e: load_grid(page))
+            ft.IconButton(ft.Icons.UPDATE, on_click=lambda e: load_grid(page)),
+            ft.IconButton(ft.Icons.SETTINGS, on_click=lambda e: edit_config(page))
         ]
     )
 
-    # async def refresh_grid_periodically():
-    #     while True:
-    #         await asyncio.sleep(5)
-    #         load_grid(page)
+    async def refresh_grid_periodically():
+        while True:
+            await asyncio.sleep(5)
+            load_grid(page)
 
-    # page.run_task(refresh_grid_periodically)
+    page.run_task(refresh_grid_periodically)
 
     page.update()
 
